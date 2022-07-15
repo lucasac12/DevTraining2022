@@ -1,0 +1,124 @@
+﻿@model IEnumerable<ProjDevTraining.Models.ProfissionalModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript" src="~/js/Profissional.js"></script>
+
+<h1>Profissionais</h1>
+
+<br />
+<button  data-bs-toggle='modal' data-bs-target='#cadastro' class="btn btn-primary">Novo Profissional</button>
+<br />
+<br />
+
+    <form>
+      <div class="form-group">
+        <label for="nomeCompleto">Nome do Profissional</label>
+        <input class="form-control" type="text" id="nomeCompleto" placeholder="Default input">
+      </div>
+      <br />
+    <div class="row">
+          <div class="form-group col-md-3">
+            <label for="rangeMenor">De Nº Registro</label>
+            <input class="form-control" type="number" id="rangeMenor" placeholder="Default input">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="rangeMaior">Até Nº Registro</label>
+            <input class="form-control" type="number" id="rangeMaior" placeholder="Default input">
+          </div>
+          <div class="form-check col-md-3" style="margin-top: 25px">
+            <input type="checkbox" class="form-check-input" id="apenasAtivos">
+            <label class="form-check-label" for="apenasAtivos">Apenas Ativos?</label>
+          </div>
+    </div>
+    </form>
+
+    <div style="margin: 25px 0px;">
+        <button onclick="buscarProfissionaisComFiltro()" class="btn btn-primary">Pesquisar</button>
+    </div>
+    
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Número Registro</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Ativo</th>
+            <th>Data Criação</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="listaProfissionais">
+
+    </tbody>
+</table>
+
+
+
+<!-- Modal de cadastro/edição -->
+<div class="modal fade" id="cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Cadastro de Profissionais</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+            <div class="col-12">
+                <label for="inputNumeroRegistro" class="form-label">Número Registro</label>
+                <input type="number" class="form-control" id="inputNumeroRegistro" disabled>
+            </div>
+            <div class="col-12" style="display: none">
+                <label for="inputId" class="form-label">Id</label>
+                <input type="number" class="form-control" id="inputId">
+            </div>
+            <div class="col-12">
+                <label for="inputNomeCompleto" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputNomeCompleto" maxlength="300">
+            </div>
+            <div class="col-12">
+                <label for="inputCPF" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="inputCPF" maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            </div>
+            <div class="col-12">
+                <label for="inputDataNascimento" class="form-label">Data Nascimento</label>
+                <input type="date" class="form-control" id="inputDataNascimento">
+            </div>
+            <div class="col-12">
+                <label for="inputSexo" class="form-label">Sexo</label>
+                    <select id="inputSexo" class="form-select">
+                      <option value="M" selected>Masculino</option>
+                      <option value="F">Feminino</option>
+                    </select>
+            </div>
+            <div class="col-12">
+                <label for="inputCEP" class="form-label">CEP</label>
+                <input type="text" class="form-control" id="inputCEP" maxlength="8" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+            </div>
+            <div class="col-12">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="inputCidade" maxlength="300">
+            </div>
+            <div class="col-12">
+                <label for="inputValorRenda" class="form-label">Valor Renda</label>
+                <input type="number" class="form-control" id="inputValorRenda">
+            </div>
+            <div class="form-check col-12" style="margin-top: 25px; margin-left: 10px;">
+                <input type="checkbox" class="form-check-input" id="inputAtivo">
+                <label class="form-check-label" for="inputAtivo">Ativo?</label>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="salvarProfissional()" id="botaoSalvar" class="btn btn-primary">Salvar</button>
+        <button type="button" id="botaoFechar" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
